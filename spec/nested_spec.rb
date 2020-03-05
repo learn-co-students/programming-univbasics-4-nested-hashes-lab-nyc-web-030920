@@ -1,41 +1,34 @@
-require_relative "spec_helper"
-require_relative "../nested.rb"
+DON_G = { name:  "Don Gately", occupation: "Live-in Staff" }
+JOELLE_VD = { name:  "Joelle van Dyne", occupation: "Radio Personality" }
+PAT_M =  { name:  "Pat Monteseian", occupation: "Staff" }
+KATE_G = { name:  "Kate Gompert", occupation: "None" }
+BRUCE_G = { name:  "Bruce Green", occupation: "Fan of Mildred" }
 
-describe "nested hash" do
-  describe "hopper" do
-    it "operates on the programmer_hash and returns the value of the :grace_hopper key" do
-      expect(hopper).to eq({:known_for => "COBOL", :languages => ["COBOL", "FORTRAN"]})
+def assembled_aoh
+  # Build an array that contains (or, "nests") the constants into a single
+  # Array. Ruby constants are denoted by ALL_CAPS
+  [DON_G, JOELLE_VD, PAT_M, KATE_G, BRUCE_G]
+end
 
-    end
-  end
+def literal_aoh
+  # Using Array literal syntax only, build a nested array that uses the data in
+  # held in the constants
+  [
+    { name:  "Don Gately", occupation: "Live-in Staff" },
+    { name:  "Joelle van Dyne", occupation: "Radio Personality" },
+    { name:  "Pat Monteseian", occupation: "Staff" },
+    { name:  "Kate Gompert", occupation: "None" },
+    { name:  "Bruce Green", occupation: "Fan of Mildred" }
+    ]
+end
 
-  describe "alan_kay_is_known_for" do
-    it "operates on the programmer_hash and returns the value of what Alan Kay is known for" do
-      expect(alan_kay_is_known_for).to eq("Object Orientation")
-    end
-  end
+def aoh_lookup(aoh, row, key)
+  aoh[row][key]
+end
 
-  describe "dennis_ritchies_language" do
-    it "operates on the programmer_hash and returns the value of Dennis Ritchie's language as a string" do
-      expect(dennis_ritchies_language).to eq("C")
-    end
-  end
-
-  describe "adding_matz" do 
-    it "operates on the programmer_hash and adds a key/value pair to the top level of the hash, returning the newly-added-to hash" do
-      expect(adding_matz.keys).to include(:yukihiro_matsumoto)
-    end
-  end
-
-  describe "#changing_alan" do
-    it "operates on the programmer_hash and changes what Alan Kay is known for, returning the newly-changed hash" do
-      expect(changing_alan[:alan_kay][:known_for]).to eq("GUI")
-    end
-  end
-
-  describe "#adding_to_dennis" do
-    it "operates on the programmer_hash and adds 'Assembly' to Dennis Ritchie's languages, returning the newly-added-to-hash" do
-      expect(adding_to_dennis[:dennis_ritchie][:languages][1]).to include("Assembly")
-    end
-  end
+def aoh_update(aoh, row, key, new_value)
+  # Update the AoH data at row and key to have the value of new_value
+  # Return the updated AoH
+  aoh[row][key] = new_value
+  aoh
 end
